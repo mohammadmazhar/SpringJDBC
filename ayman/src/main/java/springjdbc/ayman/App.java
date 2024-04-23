@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 public class App 
 {
-	//SPRING JDBC DRIVER and other Static codes
+	
     static String configString = "springjdbc/ayman/config.xml";
     
     static ApplicationContext context = new ClassPathXmlApplicationContext(configString);
@@ -22,7 +22,6 @@ public class App
     	mainmenu();
     }
 
-	//User Menu, After Successful Login
     public static void usermenu() {
     	boolean back = false;
 		while(!back) {
@@ -62,7 +61,6 @@ public class App
 		}
 	}
 
-	//Main Menu, Gets Called in Main function at Start
     public static void mainmenu() {
     	while (true) {
     		System.out.println("\n\n MENU \n\n");
@@ -81,7 +79,6 @@ public class App
  	        System.out.print("Enter Password: ");
  	        String password = scanner.nextLine();
 
-			// Password Check
  	        String regainPassword = getPassword(username);
  	        if(regainPassword==null) {
  	        	System.out.println("User or password incorrect!!!");
@@ -122,7 +119,6 @@ public class App
      	
     }
 
-	// Register Function
     public static void setUser(String user,String pass,String name,String bio) {
     	String query = "insert into Information values(?,?,?,?)";
     	int val =  template.update(query,user,pass,name,bio);
@@ -131,7 +127,6 @@ public class App
     	}
 	}
 
-	// Login Function, For Password Checking
     public static String getPassword(String username) {
 		String query = "select password from Information where username=?";
 		String password = (String) template.queryForObject(query, new Object[] { username }, String.class);
@@ -140,7 +135,6 @@ public class App
     	
 	}
 
-	// Delete User Function
     public static void deleteUser() {
     	String query = "delete from Information where username=?";
     	int val =  template.update(query,currentuser);
@@ -149,7 +143,6 @@ public class App
     	}
 	}
 
-	//Update Bio Function
     public static void updateUser(String bio) {
     	String query = "update Information set bio=? where username=?";
     	int val =  template.update(query,bio,currentuser);
@@ -158,7 +151,6 @@ public class App
     	}
 	}
 
-	// Show user Details Function
     public static Client getUser() {
     	String query = "select * from Information where username=?";
     	return template.queryForObject(query, new Object[]{currentuser}, (rs, rowNum) ->
